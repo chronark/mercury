@@ -3,7 +3,7 @@ import React from "react"
 export interface HeroProps {
   title: string
   subtitle: string
-  CTA: React.ReactNode
+  CTA?: React.ReactNode
 }
 
 export const Hero: React.FC<HeroProps> = ({ title, subtitle, CTA }) => {

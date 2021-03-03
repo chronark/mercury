@@ -21,12 +21,12 @@ export default async function signup(req: NextApiRequest, res: NextApiResponse):
         })
     }
 
-    const user = await guestClient
+    const user = (await guestClient
       .query(q.Login(q.Match(q.Index("user_by_email"), email), { password }))
       .catch((err) => {
         throw new Error(err.description)
-      })
-    console.log({ user })
+      })) as { secret: string }
+
     if (!user.secret) {
       throw new Error("Unable to issue a token for this user")
     }

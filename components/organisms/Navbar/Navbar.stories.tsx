@@ -5,4 +5,4 @@ import { Navbar } from "./Navbar"
 
 storiesOf("organisms/Navbar", module)
   .add("default", () => <Navbar />)
-  .add("with user", () => <Navbar user />)
+  .add("with user", () => <Navbar token="" />)

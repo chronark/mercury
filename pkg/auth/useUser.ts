@@ -8,13 +8,16 @@ export interface User {
 }
 
 export const useUser = (token: string): [User, boolean, Error] => {
-  const { isLoading, error, data } = useQuery("user", async () => {
-    const ref = await authClient(token).query(q.Get(q.CurrentIdentity()))
+  const { isLoading, error, data: user } = useQuery("user", async () => {
+    const { ref, data } = (await authClient(token).query(q.Get(q.CurrentIdentity()))) as {
+      ref: { id: string }
+      data: { email: string }
+    }
     return {
-      id: ref.ref.id,
-      email: ref.data.email,
+      id: ref.id,
+      email: data.email,
     }
   })
 
-  return [data, isLoading, error as Error]
+  return [user, isLoading, error as Error]
 }

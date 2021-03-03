@@ -6,7 +6,7 @@ import { SimpleForm } from "./SimpleForm"
 storiesOf("molecules/SimpleForm", module).add("signin", () => (
   <SimpleForm
     submitLabel="Submit"
-    onSubmit={(fields) => {
+    onSubmit={async (fields) => {
       console.log(fields)
     }}
     fields={[

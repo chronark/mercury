@@ -1,12 +1,12 @@
 import { getTokenFromContext } from "./cookies"
 
-import { NextPageContext } from "next"
+import { GetServerSidePropsContext } from "next"
 export interface User {
   email: string
   token: string
 }
 
-export function requireUser(ctx: NextPageContext): string {
+export function requireUser(ctx: GetServerSidePropsContext): string {
   const token = getTokenFromContext(ctx)
   if (!token) {
     ctx.res.writeHead(302, { Location: "/auth/signin" })

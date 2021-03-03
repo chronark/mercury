@@ -1,19 +1,6 @@
-import React, { useState } from "react"
-import { Input } from "../../components/atoms/Input/Input"
-import Link from "next/link"
-import { Primary } from "../../components/atoms/button/Primary/Primary"
+import React from "react"
+import { SigninForm } from "../../components/organisms/SigninForm/SigninForm"
 export const Signin = (): JSX.Element => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
-  const submit = async () => {
-    const res = await fetch("/api/auth/signin", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    })
-    console.log(res)
-  }
-
   return (
     <section className="bg-white ">
       <div className="h-screen mx-auto max-w-7xl">
@@ -31,38 +18,8 @@ export const Signin = (): JSX.Element => {
 
           <div className="flex items-center w-full bg-white lg:w-6/12 xl:w-5/12">
             <div className="flex flex-col items-center justify-start w-full p-10 lg:p-16 xl:p-24">
-              <h4 className="w-full text-3xl font-bold">Signin</h4>
-              <p className="text-lg text-gray-500">
-                or, if you don&apos;t have an account yet, you can{" "}
-                <Link href="/auth/signup">
-                  <a className="text-blue-600 underline">sign up</a>
-                </Link>
-              </p>
-              <div className="relative w-full mt-10 space-y-8">
-                <div className="relative">
-                  <label className="font-medium text-gray-900">Email</label>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter Your Email Address"
-                    value={email}
-                    setValue={setEmail}
-                  />
-                </div>
-                <div className="relative">
-                  <label className="font-medium text-gray-900">Password</label>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    setValue={setPassword}
-                  />
-                </div>
-                <div className="relative">
-                  <Primary onClick={submit} label="Sign in" highlighted />
-                </div>
-              </div>
+              <h4 className="w-full text-3xl font-bold">Create an account or sign in</h4>
+              <SigninForm />
             </div>
           </div>
         </div>

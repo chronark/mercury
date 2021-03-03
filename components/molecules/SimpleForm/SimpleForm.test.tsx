@@ -1,14 +1,14 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import "../../atoms/Input/node_modules/@testing-library/jest-dom/extend-expect"
-import SignInForm from "./SimpleForm"
+import { SimpleForm } from "./SimpleForm"
 
-describe("<SignInForm />", () => {
-  test("it should mount", () => {
-    render(<SignInForm />)
+describe("<SimpleForm />", () => {
+  test("it should match snapshot", () => {
+    render(<SimpleForm onSubmit={() => Promise.resolve()} submitLabel="submut" fields={[]} />)
 
-    const signInForm = screen.getByTestId("SignInForm")
+    const simpleForm = screen.getByTestId("SimpleForm")
 
-    expect(signInForm).toBeInTheDocument()
+    expect(simpleForm).toMatchSnapshot()
   })
 })

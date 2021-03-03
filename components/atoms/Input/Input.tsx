@@ -4,7 +4,7 @@ export interface InputProps {
   type: string
   name: string
   placeholder: string
-  register: () => void
+  register?: any
 }
 
 export const Input: React.FC<InputProps> = ({ type, name, placeholder, register }) => (
