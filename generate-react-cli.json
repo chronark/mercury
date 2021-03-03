@@ -1,0 +1,15 @@
+{
+  "usesTypeScript": true,
+  "usesCssModule": false,
+  "testLibrary": "Testing Library",
+  "component": {
+    "default": {
+      "path": "components/",
+      "withStyle": false,
+      "withTest": true,
+      "withStory": true,
+      "withLazy": false
+    }
+  },
+  "cssPreprocessor": "css"
+}
