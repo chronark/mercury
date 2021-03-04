@@ -176,7 +176,7 @@ exports[`Storyshots Index default 1`] = `
           onMouseEnter={[Function]}
         >
           <span
-            className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-500"
+            className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-600"
           >
             Mercury
           </span>
@@ -459,7 +459,7 @@ exports[`Storyshots atoms/Input text 1`] = `
 
 exports[`Storyshots atoms/Logo default 1`] = `
 <span
-  className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-500"
+  className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-600"
 >
   Mercury
 </span>
@@ -885,7 +885,7 @@ exports[`Storyshots organisms/Navbar default 1`] = `
       onMouseEnter={[Function]}
     >
       <span
-        className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-500"
+        className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-600"
       >
         Mercury
       </span>
@@ -1002,7 +1002,7 @@ exports[`Storyshots organisms/Navbar with user 1`] = `
       onMouseEnter={[Function]}
     >
       <span
-        className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-500"
+        className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-blue-700 to-lightBlue-600"
       >
         Mercury
       </span>
