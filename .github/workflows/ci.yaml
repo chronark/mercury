@@ -78,7 +78,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Run Chromatic
-        run: yarn chromatic
+        run: yarn chromatic --exit-once-uploaded
 
   
   
