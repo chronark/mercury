@@ -23,24 +23,6 @@ jobs:
         run: yarn install
       - name: Lint
         run: yarn fmt
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2.1.4
-        with:
-          node-version: "14"
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install dependencies
-        run: yarn install
-      - name: build
-        run: yarn build
   unit-test:
     name: Unit Test
     runs-on: ubuntu-latest
@@ -82,6 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup node
         uses: actions/setup-node@v2.1.4
         with:
