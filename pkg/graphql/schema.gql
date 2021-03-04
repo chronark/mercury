@@ -1,0 +1,21 @@
+type User @collection(name: "users") {
+  email: String! @unique(index: "user_by_email")
+}
+
+type List @collection(name: "lists") {
+  title: String!
+  todos: [Todo] @relation
+  owner: User!
+}
+type Todo @collection(name: "todos") {
+  title: String!
+  completed: Boolean!
+  list: List
+  owner: User!
+}
+
+type Query {
+  allTodos: [Todo!]!
+  todosByCompletedFlag(completed: Boolean): [Todo!]!
+  allLists: [List!]
+}

@@ -1,0 +1,18 @@
+{
+  "overwrite": true,
+  "schema": [
+    {
+      "https://graphql.fauna.com/graphql": {
+        "headers": {
+          "Authorization": "Bearer ${FAUNADB_SECRET}"
+        }
+      }
+    }
+  ],
+  "generates": {
+    "pkg/graphql/gen/index.ts": {
+      "documents": ["./pkg/graphql/queries/*.ts", "./pkg/graphql/mutations/*.ts"],
+      "plugins": ["typescript", "typescript-react-apollo", "typescript-operations", "typescript-apollo-next-ssr"]
+    }
+  }
+}

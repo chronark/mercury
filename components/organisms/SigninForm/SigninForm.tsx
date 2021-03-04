@@ -30,13 +30,13 @@ export const SigninForm: React.FC = () => {
             type: "email",
             name: "email",
             placeholder: "Your Email",
-            register: { required: true },
+            register: { required: "Email is required" },
           },
           {
             type: "password",
             name: "password",
             placeholder: "Your Password",
-            register: { required: true },
+            register: { required: "Password is required" },
           },
         ]}
       />

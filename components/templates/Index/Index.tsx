@@ -18,7 +18,7 @@ export const Index: React.FC<IndexProps> = ({ children, navbar }) => {
   }, [])
 
   // We are looping through the children later, so in case there is only one child we have to convert it to an array.
-  if (!(children as ReactNode[]).length) {
+  if (!(children as ReactNode[])?.length) {
     children = [children]
   }
 

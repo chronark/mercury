@@ -18,7 +18,6 @@ interface SimpleFormProps {
 
 export const SimpleForm: React.FC<SimpleFormProps> = ({ fields, submitLabel, onSubmit }): JSX.Element => {
   const { register, handleSubmit, errors } = useForm()
-  console.log(errors)
   return (
     <form className="relative w-full mt-10 space-y-8">
       {fields.map((field) => {
@@ -30,7 +29,7 @@ export const SimpleForm: React.FC<SimpleFormProps> = ({ fields, submitLabel, onS
               placeholder={field.placeholder}
               register={register(field.register)}
             />
-            <span className="text-sm text-red-700">{errors[field.name] ? `${field.name} is required` : null}</span>
+            <span className="text-sm text-red-700">{errors[field.name]?.message}</span>
           </div>
         )
       })}

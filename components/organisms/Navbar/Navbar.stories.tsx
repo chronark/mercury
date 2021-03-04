@@ -5,4 +5,4 @@ import { Navbar } from "./Navbar"
 
 storiesOf("organisms/Navbar", module)
   .add("default", () => <Navbar />)
-  .add("with user", () => <Navbar token="" />)
+  .add("with user", () => <Navbar user={{ id: "1", token: "abc" }} />)

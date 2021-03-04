@@ -1,6 +1,6 @@
 import { query as q } from "faunadb"
 
-import { guestClient } from "../../../pkg/fauna"
+import { serverClient } from "../../../pkg/fauna"
 import { setAuthCookie } from "../../../pkg/auth/cookies"
 import { NextApiRequest, NextApiResponse } from "next"
 
@@ -11,17 +11,17 @@ export default async function signup(req: NextApiRequest, res: NextApiResponse):
       throw new Error("")
     }
 
-    const emailExists = await guestClient.query(q.Exists(q.Match(q.Index("user_by_email"), q.Casefold(email))))
+    const emailExists = await serverClient.query(q.Exists(q.Match(q.Index("user_by_email"), q.Casefold(email))))
     if (!emailExists) {
       console.log("Email not found")
-      await guestClient
+      await serverClient
         .query(q.Create(q.Collection("users"), { credentials: { password }, data: { email } }))
         .catch((err) => {
           throw new Error(err.description)
         })
     }
 
-    const user = (await guestClient
+    const user = (await serverClient
       .query(q.Login(q.Match(q.Index("user_by_email"), email), { password }))
       .catch((err) => {
         throw new Error(err.description)

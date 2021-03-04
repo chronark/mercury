@@ -1,14 +1,14 @@
 import React from "react"
-import { render, screen } from "@testing-library/react"
-import "../../molecules/SimpleForm/node_modules/@testing-library/jest-dom/extend-expect"
+import renderer from "react-test-renderer"
 import { Box } from "./Box"
 
-describe("<Box />", () => {
-  test("it should match snapshot", () => {
-    render(<Box />)
-
-    const box = screen.getByTestId("Box")
-
-    expect(box).toMatchSnapshot()
-  })
+it("renders correctly", () => {
+  const tree = renderer
+    .create(
+      <Box>
+        <span>Hello World</span>
+      </Box>,
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

@@ -6,19 +6,18 @@ import { Box } from "../components/atoms/Box/Box"
 import { Hero } from "../components/organisms/Hero/Hero"
 import { Index as Template } from "../components/templates/Index/Index"
 import { GetServerSidePropsResult, NextPage, GetServerSidePropsContext } from "next"
-import { getTokenFromContext } from "../pkg/auth/cookies"
 import { Feature } from "../components/molecules/Feature/Feature"
 import Share from "../icons/outline/Share"
 import ViewList from "../icons/outline/ViewList"
 import Link from "../icons/outline/Link"
 import { Navbar } from "../components/organisms/Navbar/Navbar"
-
+import { getUserIfPresent, User } from "../pkg/auth"
 export interface IndexProps {
-  token?: string
+  user?: User
 }
 
-export const Index: NextPage<IndexProps> = ({ token }): JSX.Element => (
-  <Template navbar={<Navbar token={token} />}>
+export const Index: NextPage<IndexProps> = ({ user }): JSX.Element => (
+  <Template navbar={<Navbar user={user} />}>
     <Hero
       title="All your shopping lists in one place"
       subtitle="Share your shopping lists with your partner and never forget
@@ -56,6 +55,6 @@ export default Index
 export async function getServerSideProps(
   ctx: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IndexProps>> {
-  const token = getTokenFromContext(ctx)
-  return { props: { token: token || null } }
+  const user = await getUserIfPresent(ctx)
+  return { props: { user } }
 }

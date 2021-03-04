@@ -3,15 +3,14 @@ import Link from "next/link"
 import { Logo } from "../../atoms/Logo/Logo"
 import Menu from "../../../icons/outline/Menu"
 import X from "../../../icons/outline/X"
-import { useUser } from "../../../pkg/auth/useUser"
-
+import { User } from "../../../pkg/auth"
 export interface NavbarProps {
+  user?: User
   links?: { label: string; href: string }[]
-  token?: string
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  token,
+  user,
   links = [
     { label: "Home", href: "#" },
     { label: "Features", href: "#" },
@@ -19,7 +18,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   ],
 }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [user, ,] = useUser(token)
 
   return (
     <nav className="w-screen px-8 bg-white">
@@ -73,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </Link>
 
               <span className="inline-flex rounded-md shadow-sm">
-                <Link href="/auth/signup">
+                <Link href="/auth/signin">
                   <a className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap rounded shadow-sm bg-gradient-to-tr from-blue-700 to-lightBlue-500 shadow-blue-400 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
                     Start free trial
                   </a>
