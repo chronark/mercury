@@ -15,7 +15,14 @@
     "jsx": "preserve"
   },
   "exclude": ["node_modules", ".next", "out"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", ".storybook/storybook.test.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    ".storybook/storybook.test.ts",
+    "pkg/fauna/functions/createUser.ts"
+  ],
   "paths": {
     "@atoms/*": ["./components/atoms/*"],
     "@molecules/*": ["./components/organisms/*"],

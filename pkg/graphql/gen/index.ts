@@ -163,20 +163,14 @@ export type ListPage = {
 
 export type Query = {
   __typename?: "Query"
-  allTodos: TodoPage
   allLists: ListPage
+  ownedLists?: Maybe<Array<Maybe<List>>>
   /** Find a document from the collection of 'List' by its id. */
   findListByID?: Maybe<List>
-  todosByCompletedFlag: TodoPage
   /** Find a document from the collection of 'User' by its id. */
   findUserByID?: Maybe<User>
   /** Find a document from the collection of 'Todo' by its id. */
   findTodoByID?: Maybe<Todo>
-}
-
-export type QueryAllTodosArgs = {
-  _size?: Maybe<Scalars["Int"]>
-  _cursor?: Maybe<Scalars["String"]>
 }
 
 export type QueryAllListsArgs = {
@@ -186,12 +180,6 @@ export type QueryAllListsArgs = {
 
 export type QueryFindListByIdArgs = {
   id: Scalars["ID"]
-}
-
-export type QueryTodosByCompletedFlagArgs = {
-  _size?: Maybe<Scalars["Int"]>
-  _cursor?: Maybe<Scalars["String"]>
-  completed?: Maybe<Scalars["Boolean"]>
 }
 
 export type QueryFindUserByIdArgs = {
@@ -234,169 +222,95 @@ export type User = {
   email: Scalars["String"]
 }
 
-export const CreateTodoDocument = gql`
-  mutation CreateTodo($title: String!, $owner: ID!) {
-    createTodo(data: { title: $title, completed: false, owner: { connect: $owner } }) {
+export const CreateNewListDocument = gql`
+  mutation createNewList($title: String!, $owner: ID!) {
+    createList(data: { title: $title, owner: { connect: $owner } }) {
       title
-      completed
       owner {
         _id
       }
     }
   }
 `
-export type CreateTodoMutationFn = Apollo.MutationFunction<CreateTodoMutation, CreateTodoMutationVariables>
+export type CreateNewListMutationFn = Apollo.MutationFunction<CreateNewListMutation, CreateNewListMutationVariables>
 
 /**
- * __useCreateTodoMutation__
+ * __useCreateNewListMutation__
  *
- * To run a mutation, you first call `useCreateTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTodoMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateNewListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewListMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createTodoMutation, { data, loading, error }] = useCreateTodoMutation({
+ * const [createNewListMutation, { data, loading, error }] = useCreateNewListMutation({
  *   variables: {
  *      title: // value for 'title'
  *      owner: // value for 'owner'
  *   },
  * });
  */
-export function useCreateTodoMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateTodoMutation, CreateTodoMutationVariables>,
+export function useCreateNewListMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateNewListMutation, CreateNewListMutationVariables>,
 ) {
-  return Apollo.useMutation<CreateTodoMutation, CreateTodoMutationVariables>(CreateTodoDocument, baseOptions)
+  return Apollo.useMutation<CreateNewListMutation, CreateNewListMutationVariables>(CreateNewListDocument, baseOptions)
 }
-export type CreateTodoMutationHookResult = ReturnType<typeof useCreateTodoMutation>
-export type CreateTodoMutationResult = Apollo.MutationResult<CreateTodoMutation>
-export type CreateTodoMutationOptions = Apollo.BaseMutationOptions<CreateTodoMutation, CreateTodoMutationVariables>
-export const AllTodosDocument = gql`
-  query AllTodos {
-    allTodos {
-      data {
-        title
-        completed
-        owner {
-          _id
-        }
-      }
-    }
-  }
-`
-
-/**
- * __useAllTodosQuery__
- *
- * To run a query within a React component, call `useAllTodosQuery` and pass it any options that fit your needs.
- * When your component renders, `useAllTodosQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAllTodosQuery({
- *   variables: {
- *   },
- * });
- */
-export function useAllTodosQuery(baseOptions?: Apollo.QueryHookOptions<AllTodosQuery, AllTodosQueryVariables>) {
-  return Apollo.useQuery<AllTodosQuery, AllTodosQueryVariables>(AllTodosDocument, baseOptions)
-}
-export function useAllTodosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllTodosQuery, AllTodosQueryVariables>) {
-  return Apollo.useLazyQuery<AllTodosQuery, AllTodosQueryVariables>(AllTodosDocument, baseOptions)
-}
-export type AllTodosQueryHookResult = ReturnType<typeof useAllTodosQuery>
-export type AllTodosLazyQueryHookResult = ReturnType<typeof useAllTodosLazyQuery>
-export type AllTodosQueryResult = Apollo.QueryResult<AllTodosQuery, AllTodosQueryVariables>
-export const TodosByCompletedFlagDocument = gql`
-  query TodosByCompletedFlag($completed: Boolean!, $cursor: String) {
-    todosByCompletedFlag(completed: $completed, _cursor: $cursor) {
-      data {
-        _id
-        _ts
-        title
-        completed
-      }
-      after
-      before
-    }
-  }
-`
-
-/**
- * __useTodosByCompletedFlagQuery__
- *
- * To run a query within a React component, call `useTodosByCompletedFlagQuery` and pass it any options that fit your needs.
- * When your component renders, `useTodosByCompletedFlagQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTodosByCompletedFlagQuery({
- *   variables: {
- *      completed: // value for 'completed'
- *      cursor: // value for 'cursor'
- *   },
- * });
- */
-export function useTodosByCompletedFlagQuery(
-  baseOptions: Apollo.QueryHookOptions<TodosByCompletedFlagQuery, TodosByCompletedFlagQueryVariables>,
-) {
-  return Apollo.useQuery<TodosByCompletedFlagQuery, TodosByCompletedFlagQueryVariables>(
-    TodosByCompletedFlagDocument,
-    baseOptions,
-  )
-}
-export function useTodosByCompletedFlagLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TodosByCompletedFlagQuery, TodosByCompletedFlagQueryVariables>,
-) {
-  return Apollo.useLazyQuery<TodosByCompletedFlagQuery, TodosByCompletedFlagQueryVariables>(
-    TodosByCompletedFlagDocument,
-    baseOptions,
-  )
-}
-export type TodosByCompletedFlagQueryHookResult = ReturnType<typeof useTodosByCompletedFlagQuery>
-export type TodosByCompletedFlagLazyQueryHookResult = ReturnType<typeof useTodosByCompletedFlagLazyQuery>
-export type TodosByCompletedFlagQueryResult = Apollo.QueryResult<
-  TodosByCompletedFlagQuery,
-  TodosByCompletedFlagQueryVariables
+export type CreateNewListMutationHookResult = ReturnType<typeof useCreateNewListMutation>
+export type CreateNewListMutationResult = Apollo.MutationResult<CreateNewListMutation>
+export type CreateNewListMutationOptions = Apollo.BaseMutationOptions<
+  CreateNewListMutation,
+  CreateNewListMutationVariables
 >
-export type CreateTodoMutationVariables = Exact<{
+export const GetOwnedListsDocument = gql`
+  query getOwnedLists {
+    ownedLists {
+      title
+      _id
+    }
+  }
+`
+
+/**
+ * __useGetOwnedListsQuery__
+ *
+ * To run a query within a React component, call `useGetOwnedListsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOwnedListsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOwnedListsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOwnedListsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetOwnedListsQuery, GetOwnedListsQueryVariables>,
+) {
+  return Apollo.useQuery<GetOwnedListsQuery, GetOwnedListsQueryVariables>(GetOwnedListsDocument, baseOptions)
+}
+export function useGetOwnedListsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetOwnedListsQuery, GetOwnedListsQueryVariables>,
+) {
+  return Apollo.useLazyQuery<GetOwnedListsQuery, GetOwnedListsQueryVariables>(GetOwnedListsDocument, baseOptions)
+}
+export type GetOwnedListsQueryHookResult = ReturnType<typeof useGetOwnedListsQuery>
+export type GetOwnedListsLazyQueryHookResult = ReturnType<typeof useGetOwnedListsLazyQuery>
+export type GetOwnedListsQueryResult = Apollo.QueryResult<GetOwnedListsQuery, GetOwnedListsQueryVariables>
+export type CreateNewListMutationVariables = Exact<{
   title: Scalars["String"]
   owner: Scalars["ID"]
 }>
 
-export type CreateTodoMutation = { __typename?: "Mutation" } & {
-  createTodo: { __typename?: "Todo" } & Pick<Todo, "title" | "completed"> & {
-      owner: { __typename?: "User" } & Pick<User, "_id">
-    }
+export type CreateNewListMutation = { __typename?: "Mutation" } & {
+  createList: { __typename?: "List" } & Pick<List, "title"> & { owner: { __typename?: "User" } & Pick<User, "_id"> }
 }
 
-export type AllTodosQueryVariables = Exact<{ [key: string]: never }>
+export type GetOwnedListsQueryVariables = Exact<{ [key: string]: never }>
 
-export type AllTodosQuery = { __typename?: "Query" } & {
-  allTodos: { __typename?: "TodoPage" } & {
-    data: Array<
-      Maybe<
-        { __typename?: "Todo" } & Pick<Todo, "title" | "completed"> & {
-            owner: { __typename?: "User" } & Pick<User, "_id">
-          }
-      >
-    >
-  }
-}
-
-export type TodosByCompletedFlagQueryVariables = Exact<{
-  completed: Scalars["Boolean"]
-  cursor?: Maybe<Scalars["String"]>
-}>
-
-export type TodosByCompletedFlagQuery = { __typename?: "Query" } & {
-  todosByCompletedFlag: { __typename?: "TodoPage" } & Pick<TodoPage, "after" | "before"> & {
-      data: Array<Maybe<{ __typename?: "Todo" } & Pick<Todo, "_id" | "_ts" | "title" | "completed">>>
-    }
+export type GetOwnedListsQuery = { __typename?: "Query" } & {
+  ownedLists?: Maybe<Array<Maybe<{ __typename?: "List" } & Pick<List, "title" | "_id">>>>
 }

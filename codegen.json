@@ -11,8 +11,8 @@
   ],
   "generates": {
     "pkg/graphql/gen/index.ts": {
-      "documents": ["./pkg/graphql/queries/*.ts", "./pkg/graphql/mutations/*.ts"],
-      "plugins": ["typescript", "typescript-react-apollo", "typescript-operations", "typescript-apollo-next-ssr"]
+      "documents": ["./pkg/graphql/operations/*.gql"],
+      "plugins": ["typescript", "typescript-react-apollo", "typescript-operations"]
     }
   }
 }

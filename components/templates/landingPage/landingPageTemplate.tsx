@@ -1,11 +1,11 @@
 import React, { useState, useEffect, ReactNode } from "react"
 import { Footer } from "../../molecules/Footer/Footer"
 
-export interface IndexProps {
+export interface LandingPageTemplateProps {
   navbar: React.ReactNode
 }
 
-export const Index: React.FC<IndexProps> = ({ children, navbar }) => {
+export const LandingPageTemplate: React.FC<LandingPageTemplateProps> = ({ children, navbar }) => {
   const [y, setY] = useState(0)
   const updateY = () => setY(window.pageYOffset)
   useEffect(() => {

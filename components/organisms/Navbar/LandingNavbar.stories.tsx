@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react"
 import { storiesOf } from "@storybook/react"
-import { Navbar } from "./Navbar"
+import { Navbar } from "./LandingNavbar"
 
 storiesOf("organisms/Navbar", module)
   .add("default", () => <Navbar />)

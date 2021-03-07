@@ -1,0 +1,22 @@
+Update(
+  Function("getOwnedLists"), {
+    role: Role("authenticated_user"),
+    body: Query(
+      Lambda(
+        [], 
+        Select(
+          ["data"], 
+          Map(
+            Paginate(
+              Match(
+                Index("lists_by_owner"), 
+                CurrentIdentity()
+              )
+            ),
+            Lambda("X", Get(Var("X")))
+          )
+        )
+      )
+    ) 
+  }
+)

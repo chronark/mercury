@@ -1,0 +1,17 @@
+mutation createNewList($title: String!, $owner: ID!) {
+  createList(data: { title: $title, owner: { connect: $owner } }) {
+    title
+    owner {
+      _id
+    }
+  }
+}
+query getOwnedLists {
+  ownedLists {
+    _id
+    title
+    todos {
+      title
+    }
+  }
+}
