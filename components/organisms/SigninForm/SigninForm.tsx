@@ -12,7 +12,7 @@ export const SigninForm: React.FC = () => {
     setSubmitting(true)
 
     await signin(email, password)
-      .then(() => router.push("/app"))
+      .then(() => router.push("/app/lists"))
       .catch((err: Error) => {
         setError(err.message)
       })

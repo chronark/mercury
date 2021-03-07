@@ -5,17 +5,16 @@ type User @collection(name: "users") {
 type List @collection(name: "lists") {
   title: String!
   todos: [Todo] @relation
-  owner: User!
+  owner: User! @relation
 }
 type Todo @collection(name: "todos") {
   title: String!
   completed: Boolean!
   list: List
-  owner: User!
+  owner: User! @relation
 }
 
 type Query {
-  allTodos: [Todo!]!
-  todosByCompletedFlag(completed: Boolean): [Todo!]!
-  allLists: [List!]
+  allLists: [List] @index(name: "all_lists")
+  ownedLists: [List] @resolver(name: "getOwnedLists", paginated: false)
 }
