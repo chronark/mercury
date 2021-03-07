@@ -13,7 +13,7 @@ Update(
                 CurrentIdentity()
               )
             ),
-            Lambda("X", Get(Var("X")))
+            Lambda("listRef", Get(Var("listRef")))
           )
         )
       )
