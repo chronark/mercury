@@ -1,0 +1,13 @@
+CreateFunction({
+  name: "login",
+  body: Query(Lambda(["email", "password"], Do(If(Exists(Match(Index("user_by_email"), Casefold(Var("email"), undefined))), null, Create(Collection("users"), {
+    credentials: {
+      password: Var("password")
+    },
+    data: {
+      email: Casefold(Var("email"), undefined)
+    }
+  })), Login(Match(Index("user_by_email"), Casefold(Var("email"), undefined)), {
+    password: Var("password")
+  }))))
+})

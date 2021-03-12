@@ -1,0 +1,5 @@
+CreateRole({
+  name: "Guest",
+  membership: {},
+  privileges: []
+})

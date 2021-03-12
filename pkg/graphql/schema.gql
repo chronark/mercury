@@ -2,19 +2,36 @@ type User @collection(name: "users") {
   email: String! @unique(index: "user_by_email")
 }
 
-type List @collection(name: "lists") {
-  title: String!
-  todos: [Todo] @relation
-  owner: User! @relation
-}
-type Todo @collection(name: "todos") {
-  title: String!
-  completed: Boolean!
-  list: List
-  owner: User! @relation
+enum Unit {
+  GRAM
+  COUNT
 }
 
+type Ingredient @embedded {
+  food: Food! @related
+  amount: Float!
+  unit: Unit!
+}
+
+type Recipe @collection(name: "recipes") {
+  name: String!
+  ingredients: [Ingredient!]
+}
+
+type Food @collection(name: "foods") {
+  name: String! @unique(index: "food_by_name")
+}
 type Query {
-  allLists: [List] @index(name: "all_lists")
-  ownedLists: [List] @resolver(name: "getOwnedLists", paginated: false)
+  allRecipes: [Recipe!] @index(name: "allRecipes")
+}
+
+input CreateIngredientInput {
+  name: String!
+  amount: Float!
+  unit:Unit!
+}
+
+input CreateRecipeInput {
+  title: String!
+  ingredients: [CreateIngredientInput!]
 }

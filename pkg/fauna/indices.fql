@@ -1,7 +1,0 @@
-CreateIndex({
-  name: "lists_by_owner",
-  source: Collection("lists"),
-  terms: [
-    { field: ["data","owner"]}
-  ]
-})

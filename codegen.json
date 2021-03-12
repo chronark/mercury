@@ -4,7 +4,7 @@
     {
       "https://graphql.fauna.com/graphql": {
         "headers": {
-          "Authorization": "Bearer ${FAUNADB_SECRET}"
+          "Authorization": "Bearer ${FAUNA_ADMIN_KEY}"
         }
       }
     }
