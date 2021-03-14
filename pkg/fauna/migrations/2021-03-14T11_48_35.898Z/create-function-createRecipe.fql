@@ -1,0 +1,20 @@
+CreateFunction({
+  name: "createRecipe",
+  role: Role("authenticatedUser"),
+  body: Query(Lambda(["name", "ingredients"], Create(Collection("recipes"), {
+    data: {
+      name: Var("name"),
+      ingredients: Map(Var("ingredients"), Lambda("ingredient", {
+        foodRef: Select("ref", Let([{
+          food: Match(Index("food_by_name"), Select(["food", "name"], Var("ingredient")))
+        }], Do(If(Exists(Var("food")), null, Create(Collection("foods"), {
+          data: {
+            name: Select(["food", "name"], Var("ingredient"))
+          }
+        })), Get(Var("food"))))),
+        amount: Select("amount", Var("ingredient")),
+        unit: Select("unit", Var("ingredient"))
+      }))
+    }
+  })))
+})

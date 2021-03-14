@@ -1,32 +1,33 @@
 import React from "react"
 import { NextPage, GetServerSidePropsResult, GetServerSidePropsContext } from "next"
 import { AppNavbar } from "../../components/organisms/AppNavbar/AppNavbar"
-import { useGetOwnedListsQuery, useCreateNewListMutation } from "../../pkg/graphql/gen"
+import { useFauna } from "../../pkg/fauna/lib/hooks"
+import { useQuery, useMutation } from "react-query"
 import { requireUser, User } from "../../pkg/auth"
 import { Box } from "../../components/atoms/Box/Box"
 import { AppTemplate } from "../../components/templates/landingPage/app/appTemplate"
+import { Unit, Recipe,Ingredient } from "../../pkg/fauna/lib/types"
 export interface Props {
   user: User
 }
 
 export interface ListProps {
-  title: string
-  todos?: { title: string }[]
+  recipe: Recipe
 }
-const List: React.FC<ListProps> = ({ title, todos }): JSX.Element => {
+const List: React.FC<ListProps> = ({ recipe }): JSX.Element => {
   return (
-    <Box paddingOverwrite="p-2">
+    <Box paddingOverwrite="p-2" key={recipe.name}>
       <div className="flex justify-between px-4 py-4 mt-4 bg-white rounded-lg shadow-sm cursor-pointer dark:bg-gray-600">
         <div className="flex justify-center">
           <img
             className="object-cover w-12 h-12 rounded-full"
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+            src="https://picsum.photos/200"
             alt=""
           />
 
           <div className="flex flex-col px-2 text-gray-600 capitalize">
-            <span className="font-bold text-md">{title}</span>
-            <span className="mt-1 text-sm font-semibold text-gray-400">{todos?.length ?? 0} Items</span>
+            <span className="font-bold text-md">{recipe.name}</span>
+            <span className="mt-1 text-sm font-semibold text-gray-400">{recipe.ingredients?.length ?? 0} Items</span>
           </div>
         </div>
 
@@ -65,26 +66,32 @@ const List: React.FC<ListProps> = ({ title, todos }): JSX.Element => {
 }
 
 export const Index: NextPage<Props> = ({ user }): JSX.Element => {
-  const [createList] = useCreateNewListMutation()
-  const { data, loading, error } = useGetOwnedListsQuery()
-  console.log({ data, loading, error })
-
+  const { getRecipes, createRecipe } = useFauna(user.token)
+  const { data: recipes, isLoading, isError, error } = getRecipes()
+  console.log(recipes)
+  const recipe = {
+    name: "Asd",
+    ingredients: [
+      {
+        food: { name: "tomato" },
+        amount: 2,
+        unit: Unit.g,
+      },
+    ],
+  }
   return (
     <AppTemplate navbar={<AppNavbar />}>
       <div>
-        <button onClick={() => createList({ variables: { title: "Hello World", owner: user.id } })}>Add new</button>
+        <button onClick={() => createRecipe(recipe)}>asd</button>
         <div className="w-full space-y-5">
           <p className="font-medium text-blue-600 uppercase">Your lists</p>
-          {error ? <p className="text-red-500">{error.message}</p> : null}
-          {data ? (
-            data.ownedLists.map((list) => (
-              <div key={list._id}>
-                <List title={list.title} />
-              </div>
-            ))
-          ) : (
-            <p>No lists found</p>
-          )}
+          <div>
+            {isError
+              ? error
+              : isLoading
+              ? "loading..."
+              : recipes.map((recipe) => <List recipe={recipe} />)}
+          </div>
         </div>
         <div className="w-full space-y-5">
           <p className="font-medium text-blue-600 uppercase">Lists shared with you</p>
