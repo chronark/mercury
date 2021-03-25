@@ -1,4 +1,4 @@
-import { Ingredient, Recipe, Food } from "./types"
+import { Ingredient, Recipe, Food, User } from "./types"
 import { authClient } from "./client"
 import { useMutation, useQuery } from "react-query"
 import {
@@ -54,7 +54,3 @@ export const Fauna = () => {
 }
 
 
-
-async function getUserByEmail(email:string): Promise<User> {
- return client.query<User>(q.Match(q.Index('user_by_email'), email))
-}
