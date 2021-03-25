@@ -1,7 +1,8 @@
 import React from "react"
 import { Input } from "../../atoms/Input/Input"
-import { Primary } from "../../atoms/button/Primary/Primary"
+import { Button } from "../../molecules/clickable/Button"
 import { useForm, RegisterOptions } from "react-hook-form"
+import { Link } from "../clickable/Link"
 
 interface Field {
   type: string
@@ -33,7 +34,9 @@ export const SimpleForm: React.FC<SimpleFormProps> = ({ fields, submitLabel, onS
           </div>
         )
       })}
-      <Primary onClick={handleSubmit(onSubmit)} label={submitLabel} highlighted />
+       <div className="w-full">
+    <Link type="cta" href="" label="Choose plan" size="auto"/>
+    </div>
     </form>
   )
 }

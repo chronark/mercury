@@ -1,11 +1,11 @@
 variable "vercel_token" {
-    type = string
-    sensitive = true
+  type      = string
+  sensitive = true
 }
 
 variable "fauna_token" {
-    type = string
-    sensitive = true
+  type      = string
+  sensitive = true
 }
 
 
@@ -30,10 +30,10 @@ resource "vercel_secret" "fauna_token" {
 }
 
 resource "vercel_env" "env" {
-    project_id = vercel_project.mercury.id
-  type  = "secret"
-  key   = "FAUNA_TOKEN"
-  value = vercel_secret.fauna_token.id
-    target = ["production", "preview"]
+  project_id = vercel_project.mercury.id
+  type       = "secret"
+  key        = "FAUNA_TOKEN"
+  value      = vercel_secret.fauna_token.id
+  target     = ["production", "preview"]
 
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router"
 import { SimpleForm } from "../../molecules/SimpleForm/SimpleForm"
-import { Spinner } from "../../atoms/Spinner/Spinner"
+import { Spinner } from "../../atoms/spinner/Spinner"
 import { signin } from "../../../pkg/auth"
 export const SigninForm: React.FC = () => {
   const router = useRouter()
