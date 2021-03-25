@@ -1,4 +1,4 @@
-import { Ingredient, Recipe, Food } from "./types"
+import { Ingredient, Recipe, Food, User } from "./types"
 import { authClient } from "./client"
 import { useMutation, useQuery } from "react-query"
 import {
@@ -38,7 +38,7 @@ export const Fauna = () => {
 
   return {
     getRecipes: async (): Promise<Recipe[]> => {
-      return (await client.query(
+      return (await client.query<Recipe[]>(
         Select(
           "data",
           Map(Paginate(Documents(Collection("recipes"))), Lambda(["recipe"], Select("data", Get(Var("recipe"))))),

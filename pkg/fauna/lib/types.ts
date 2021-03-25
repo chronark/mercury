@@ -17,3 +17,8 @@ export enum Unit {
 export interface Food {
   name: string
 }
+
+
+export interface User {
+  email: string
+}
