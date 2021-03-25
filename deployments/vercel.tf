@@ -24,7 +24,7 @@ resource "vercel_project" "mercury" {
 }
 
 resource "vercel_secret" "fauna_token" {
-  name  = "fauna_token"
+  name  = "mercury_fauna_token"
   value = var.fauna_token
 }
 
