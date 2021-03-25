@@ -21,6 +21,7 @@ resource "vercel_project" "mercury" {
     type = "github"
     repo = "chronark/mercury"
   }
+  framework = "nextjs"
 }
 
 resource "vercel_secret" "fauna_token" {
