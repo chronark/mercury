@@ -22,7 +22,7 @@ resource "vercel_project" "mercury" {
     repo = "chronark/mercury"
   }
   framework = "nextjs"
-  output_directory = "./.next/
+  output_directory = "./.next/"
 }
 
 resource "vercel_secret" "fauna_token" {
