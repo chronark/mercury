@@ -38,7 +38,7 @@ export const Fauna = () => {
 
   return {
     getRecipes: async (): Promise<Recipe[]> => {
-      return (await client.query(
+      return (await client.query<Recipe[]>(
         Select(
           "data",
           Map(Paginate(Documents(Collection("recipes"))), Lambda(["recipe"], Select("data", Get(Var("recipe"))))),
@@ -51,4 +51,10 @@ export const Fauna = () => {
       return ""
     },
   }
+}
+
+
+
+async function getUserByEmail(email:string): Promise<User> {
+ return client.query<User>(q.Match(q.Index('user_by_email'), email))
 }
