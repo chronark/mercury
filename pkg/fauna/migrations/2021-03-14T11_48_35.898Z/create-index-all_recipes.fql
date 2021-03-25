@@ -1,0 +1,9 @@
+CreateIndex({
+  name: "all_recipes",
+  source: Collection("foods"),
+  terms: [{
+    field: ["data", "name"]
+  }],
+  unique: true,
+  serialized: true
+})

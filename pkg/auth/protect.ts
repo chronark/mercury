@@ -30,7 +30,7 @@ export async function requireUser(ctx: GetServerSidePropsContext): Promise<User>
   const token = getTokenFromContext(ctx)
   if (!token) {
     ctx.res.writeHead(302, { Location: "/auth/signin" })
-    return
+    return null
   }
 
   const user = (await authClient(token).query(CurrentIdentity())) as { id: string }
